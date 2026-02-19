@@ -1,0 +1,545 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user in the PharmaTask application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user entity."
+        },
+        "uid": {
+          "type": "string",
+          "description": "Firebase user ID."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User's display name."
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address.",
+          "format": "email"
+        },
+        "role": {
+          "type": "string",
+          "description": "User's role (admin or user)."
+        },
+        "reportSettings": {
+          "type": "object",
+          "description": "Settings for automated team reports for managers.",
+          "properties": {
+            "frequency": {
+              "type": "string",
+              "description": "How often to generate the report.",
+              "enum": [
+                "daily",
+                "weekly",
+                "never"
+              ]
+            }
+          }
+        },
+        "viewPreference": {
+          "type": "string",
+          "description": "User's preferred view for the tasks page.",
+          "enum": [
+            "list",
+            "kanban"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "uid",
+        "displayName",
+        "email",
+        "role"
+      ]
+    },
+    "PublicUser": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PublicUser",
+      "type": "object",
+      "description": "Represents the public-facing data for a user, readable by anyone.",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase user ID."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User's display name."
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address.",
+          "format": "email"
+        },
+        "role": {
+          "type": "string",
+          "description": "User's role (admin or user)."
+        }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "email",
+        "role"
+      ]
+    },
+    "TaskTemplate": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "TaskTemplate",
+      "type": "object",
+      "description": "Represents a template for tasks.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the task template."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the task template."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the task template."
+        },
+        "subtasks": {
+          "type": "array",
+          "description": "Array of subtasks within the task template.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "subtasks"
+      ]
+    },
+    "Task": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Task",
+      "type": "object",
+      "description": "Represents a task assigned to a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the task."
+        },
+        "taskTemplateId": {
+          "type": "string",
+          "description": "Reference to TaskTemplate. (Relationship: TaskTemplate 1:N Task)"
+        },
+        "assigneeId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Task)"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the task (Not Started, In Progress, Completed)."
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "Due date of the task.",
+          "format": "date-time"
+        },
+        "priority": {
+          "type": "string",
+          "description": "Priority of the task.",
+          "enum": [
+            "High",
+            "Medium",
+            "Low"
+          ]
+        },
+        "finalReportNumber": {
+          "type": "string",
+          "description": "Final report number associated with the task."
+        },
+        "subtaskStatuses": {
+          "type": "array",
+          "description": "Array of statuses for each subtask.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "equipmentId": {
+          "type": "string",
+          "description": "Reference to Equipment. (Relationship: Equipment 1:N Task)"
+        },
+        "equipmentName": {
+          "type": "string",
+          "description": "Denormalized name of the linked equipment."
+        },
+        "order": {
+          "type": "number",
+          "description": "A number used for ordering tasks within a user's list."
+        },
+        "binderLocation": {
+          "type": "string",
+          "description": "The physical location of the completed validation protocol binder."
+        },
+        "department": {
+          "type": "string",
+          "description": "The department associated with the task."
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The beginning of the target quarter."
+        },
+        "targetQuarter": {
+          "type": "string",
+          "description": "Target planning quarter.",
+          "enum": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4"
+          ]
+        },
+        "delayReason": {
+          "type": "string",
+          "description": "The reason for a task delay."
+        },
+        "isDelayApproved": {
+          "type": "boolean",
+          "description": "Whether the task delay has been approved by a manager."
+        }
+      },
+      "required": [
+        "id",
+        "taskTemplateId",
+        "assigneeId",
+        "status",
+        "dueDate",
+        "subtaskStatuses"
+      ]
+    },
+    "Notification": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Notification",
+      "type": "object",
+      "description": "Represents an in-app notification for a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the notification."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Notification) User to which the notification is directed."
+        },
+        "message": {
+          "type": "string",
+          "description": "Notification message."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of when the notification was created."
+        },
+        "isRead": {
+          "type": "boolean",
+          "description": "Whether the user has read the notification."
+        },
+        "link": {
+          "type": "string",
+          "description": "Optional URL to navigate to when the notification is clicked."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "message",
+        "createdAt",
+        "isRead"
+      ]
+    },
+    "Document": {
+      "title": "Document",
+      "type": "object",
+      "description": "Represents an uploaded file, such as a template or protocol.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the document."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the file."
+        },
+        "url": {
+          "type": "string",
+          "description": "The download URL from Firebase Storage."
+        },
+        "storagePath": {
+          "type": "string",
+          "description": "The path to the file in Firebase Storage."
+        },
+        "uploaderId": {
+          "type": "string",
+          "description": "The UID of the user who uploaded the file."
+        },
+        "uploaderName": {
+          "type": "string",
+          "description": "The display name of the user who uploaded the file."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of when the document was uploaded."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "url",
+        "storagePath",
+        "uploaderId",
+        "uploaderName",
+        "createdAt"
+      ]
+    },
+    "Event": {
+      "title": "Event",
+      "type": "object",
+      "description": "Represents a team event or a blocked-off time on the schedule.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the event."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the event."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the event."
+        },
+        "start": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The start date and time of the event."
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The end date and time of the event."
+        },
+        "participantIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of user UIDs participating in the event."
+        },
+        "creatorId": {
+          "type": "string",
+          "description": "The UID of the user who created the event."
+        },
+        "creatorName": {
+          "type": "string",
+          "description": "The display name of the user who created the event."
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "start",
+        "end",
+        "participantIds",
+        "creatorId",
+        "creatorName"
+      ]
+    },
+    "Equipment": {
+      "title": "Equipment",
+      "type": "object",
+      "description": "Represents a piece of lab equipment that requires validation.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the equipment."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name or identifier for the equipment."
+        },
+        "rin": {
+          "type": "string",
+          "description": "Research Instrument Number."
+        },
+        "lastRevalidationDate": {
+          "type": "string",
+          "description": "The date of the last re-validation."
+        },
+        "validationDueDate": {
+          "type": "string",
+          "description": "The date for the next scheduled validation."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "rin",
+        "validationDueDate"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores private user profiles. Writable only by the user themselves.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The Firebase user ID."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/public_users/{userId}",
+        "definition": {
+          "entityName": "PublicUser",
+          "schema": {
+            "$ref": "#/backend/entities/PublicUser"
+          },
+          "description": "Stores public user data for listing in the admin panel. Readable by anyone, writable by authenticated users.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The Firebase user ID."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/taskTemplates/{taskTemplateId}",
+        "definition": {
+          "entityName": "TaskTemplate",
+          "schema": {
+            "$ref": "#/backend/entities/TaskTemplate"
+          },
+          "description": "Stores task templates, accessible by admins.",
+          "params": [
+            {
+              "name": "taskTemplateId",
+              "description": "The unique identifier for the task template."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/documents/{documentId}",
+        "definition": {
+          "entityName": "Document",
+          "schema": {
+            "$ref": "#/backend/entities/Document"
+          },
+          "description": "Stores metadata for uploaded documents. Readable and Writable by all authenticated users.",
+          "params": [
+            {
+              "name": "documentId",
+              "description": "The unique identifier for the document."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/events/{eventId}",
+        "definition": {
+          "entityName": "Event",
+          "schema": {
+            "$ref": "#/backend/entities/Event"
+          },
+          "description": "Stores team-wide schedule events. Readable by all authenticated users, writable by the event creator.",
+          "params": [
+            {
+              "name": "eventId",
+              "description": "The unique identifier for the event."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/equipment/{equipmentId}",
+        "definition": {
+          "entityName": "Equipment",
+          "schema": {
+            "$ref": "#/backend/entities/Equipment"
+          },
+          "description": "Stores all pieces of equipment that require validation tracking.",
+          "params": [
+            {
+              "name": "equipmentId",
+              "description": "The unique identifier for the equipment."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/tasks/{taskId}",
+        "definition": {
+          "entityName": "Task",
+          "schema": {
+            "$ref": "#/backend/entities/Task"
+          },
+          "description": "Stores tasks assigned to users. Includes denormalized 'assigneeId' for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The Firebase user ID to whom the task is assigned."
+            },
+            {
+              "name": "taskId",
+              "description": "The unique identifier for the task."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/notifications/{notificationId}",
+        "definition": {
+          "entityName": "Notification",
+          "schema": {
+            "$ref": "#/backend/entities/Notification"
+          },
+          "description": "Stores in-app notifications for users.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The Firebase user ID to whom the notification is directed."
+            },
+            {
+              "name": "notificationId",
+              "description": "The unique identifier for the notification."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to provide a secure, scalable, and easily debuggable system for the PharmaTask application. A key change is the introduction of the `/public_users` collection. This collection stores a subset of user data that is safe to be publicly readable, solving the complex and error-prone permission issues with listing users for the admin panel. Data is duplicated from the private `/users` collection to `/public_users` upon user creation/update. A new `/documents` collection has been added to store metadata about shared files. A new `/equipment` collection is added to track lab equipment."
+  }
+}

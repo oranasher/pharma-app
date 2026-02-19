@@ -1,0 +1,76 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions to make rules more readable.
+    function isAdmin() {
+      // The ADMIN_UID is hardcoded for simplicity. 
+      // It must exactly match the UID in src/lib/admin.ts.
+      return request.auth.uid == 'icE0uxFc2XUfNowZx5SKlYFbeue2';
+    }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // Rule for private user profiles, which include settings.
+    // Only the user themselves or an admin can access this data.
+    match /users/{userId} {
+      allow read, update: if isOwner(userId) || isAdmin();
+      // Any authenticated user can create their own user profile document during sign-up.
+      allow create: if isOwner(userId);
+    }
+
+    // Rule for public user data, used for lists and mentions.
+    match /public_users/{userId} {
+      // It is safe for anyone to read public user profiles, as this data is used for UI elements like assignee lists.
+      allow read: if true;
+      // A user can create/update their own public profile, or an admin can.
+      allow create, update: if isOwner(userId) || isAdmin();
+    }
+
+    // Task templates should be readable by anyone, but only managed by administrators.
+    match /taskTemplates/{taskTemplateId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+
+    // Equipment registry: Everyone can read, create, and update. Only admins can delete.
+    match /equipment/{equipmentId} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null;
+      allow delete: if isAdmin();
+    }
+    
+    // Shared documents are readable and writable by any authenticated user.
+    match /documents/{documentId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Team-wide schedule events.
+    match /events/{eventId} {
+      // Any authenticated user can see the team schedule.
+      allow read: if request.auth != null;
+      // Only the event creator or an admin can modify/delete an event.
+      allow update, delete: if resource.data.creatorId == request.auth.uid || isAdmin();
+      // Any authenticated user can create a new event.
+      allow create: if request.auth != null;
+    }
+
+    // --- REFACTORED TASK MANAGEMENT PROTOCOLS ---
+    
+    // Shared Database Strategy: All authenticated personnel can read, create, and update tasks.
+    // This allows for a collective archive and collaborative workload management.
+    // Permanent deletion is strictly restricted to System Administrators (Level 4 Clearance).
+    match /{path=**}/tasks/{taskId} {
+        allow read, create, update: if request.auth != null;
+        allow delete: if isAdmin();
+    }
+
+    // Notifications are private to the user.
+    match /users/{userId}/notifications/{notificationId} {
+      allow read, write: if isOwner(userId) || isAdmin();
+    }
+  }
+}

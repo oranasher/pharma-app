@@ -1,0 +1,308 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root, [data-theme="light-professional"] {
+    /* Light Professional Theme */
+    --background: 0 0% 98%; /* Lighter for more air */
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 130 40% 55%; /* Richer Green */
+    --primary-foreground: 130 30% 10%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 94%; /* A bit softer */
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --warning: 38 92% 50%; /* Amber */
+    --warning-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 130 40% 55%;
+    --radius: 0.75rem;
+
+    /* Chart colors */
+    --chart-1: 220 84% 60%;
+    --chart-2: 160 84% 60%;
+    --chart-3: 40 84% 60%;
+    --chart-4: 340 84% 60%;
+    --chart-5: 280 84% 60%;
+    
+    /* Sidebar specific colors */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-accent: 210 40% 96.1%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214.3 31.8% 91.4%;
+    --sidebar-ring: 130 40% 55%;
+
+    /* Gradients */
+    --primary-gradient: linear-gradient(to right, hsl(var(--primary)), hsl(140 50% 60%));
+    --high-priority-gradient: linear-gradient(to right, hsl(var(--warning)), hsl(15 95% 60%));
+  }
+
+  [data-theme="aurora-glass"] {
+    --background: 224 71% 4%;
+    --foreground: 210 40% 98%;
+    --card: 224 71% 4%;
+    --card-foreground: 210 40% 98%;
+    --popover: 224 71% 6%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 180 100% 50%;
+    --primary-foreground: 224 71% 4%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 180 100% 50% / 0.1;
+    --accent-foreground: 180 100% 50%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --warning: 38 92% 50%; /* Amber */
+    --warning-foreground: 210 40% 98%;
+    --border: 180 100% 50% / 0.2;
+    --input: 217 33% 17%;
+    --ring: 180 100% 50%;
+    --radius: 0.75rem;
+
+    /* Chart colors */
+    --chart-1: 220 84% 60%;
+    --chart-2: 160 84% 60%;
+    --chart-3: 40 84% 60%;
+    --chart-4: 340 84% 60%;
+    --chart-5: 280 84% 60%;
+
+    /* Sidebar specific colors */
+    --sidebar-background: 224 71% 4% / 0;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-border: 180 100% 50% / 0.2;
+    --sidebar-accent: 180 100% 50% / 0.1;
+    --sidebar-accent-foreground: 180 100% 50%;
+    --sidebar-ring: 180 100% 50%;
+
+    /* Gradients */
+    --primary-gradient: linear-gradient(to right, hsl(var(--primary)), hsl(190 100% 60%));
+    --high-priority-gradient: linear-gradient(to right, hsl(var(--warning)), hsl(15 95% 60%));
+  }
+
+  [data-theme="clean-slate"] {
+    --background: 40 20% 97%;
+    --foreground: 20 10% 25%;
+    --card: 0 0% 100%; /* Differentiate card from background */
+    --card-foreground: 20 10% 25%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 10% 25%;
+    --primary: 215 25% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 10% 92%;
+    --secondary-foreground: 20 10% 25%;
+    --muted: 40 10% 92%;
+    --muted-foreground: 40 5% 50%;
+    --accent: 40 10% 94%;
+    --accent-foreground: 215 25% 45%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 45 93% 47%;
+    --warning-foreground: 0 0% 100%;
+    --border: 40 10% 88%;
+    --input: 0 0% 100%;
+    --ring: 215 25% 45%;
+    --radius: 0.5rem;
+
+    /* Chart colors */
+    --chart-1: 215 40% 60%;
+    --chart-2: 25 80% 60%;
+    --chart-3: 150 40% 50%;
+    --chart-4: 340 70% 60%;
+    --chart-5: 280 50% 60%;
+    
+    /* Sidebar specific colors */
+    --sidebar-background: 40 20% 97%;
+    --sidebar-foreground: 20 10% 25%;
+    --sidebar-accent: 40 10% 92%;
+    --sidebar-accent-foreground: 215 25% 45%;
+    --sidebar-border: 40 10% 88%;
+    --sidebar-ring: 215 25% 45%;
+
+    /* Gradients */
+    --primary-gradient: linear-gradient(to right, hsl(var(--primary)), hsl(220 25% 55%));
+    --high-priority-gradient: linear-gradient(to right, hsl(var(--warning)), hsl(30 80% 60%));
+  }
+
+  [data-theme="vibrant"] {
+    --background: 48 100% 97%;
+    --foreground: 240 10% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 20%;
+    --primary: 340 95% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 190 80% 95%;
+    --secondary-foreground: 190 50% 25%;
+    --muted: 190 80% 95%;
+    --muted-foreground: 240 5% 50%;
+    --accent: 170 90% 60%;
+    --accent-foreground: 170 100% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --border: 340 20% 88%;
+    --input: 0 0% 100%;
+    --ring: 340 95% 65%;
+    --radius: 0.75rem;
+
+    /* Chart colors */
+    --chart-1: 190 80% 50%;
+    --chart-2: 20 90% 60%;
+    --chart-3: 280 85% 70%;
+    --chart-4: 50 100% 55%;
+    --chart-5: 220 80% 65%;
+    
+    /* Sidebar specific colors */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 10% 20%;
+    --sidebar-accent: 340 95% 95%;
+    --sidebar-accent-foreground: 340 95% 50%;
+    --sidebar-border: 340 10% 90%;
+    --sidebar-ring: 340 95% 65%;
+
+    /* Gradients */
+    --primary-gradient: linear-gradient(to right, hsl(var(--primary)), hsl(350 95% 70%));
+    --high-priority-gradient: linear-gradient(to right, hsl(var(--warning)), hsl(30 95% 60%));
+  }
+
+  [data-theme="neon-party"] {
+    /* Neon Party Theme - Super Colorful & Vibrant */
+    --background: 220 15% 96%; /* Light grey-blue, almost white */
+    --foreground: 225 15% 15%; /* Dark blue-grey for text */
+    --card: 0 0% 100%; /* White cards to make content pop */
+    --card-foreground: 225 15% 15%;
+    --popover: 30 100% 97%; /* Light yellow for popovers/dropdowns */
+    --popover-foreground: 30 50% 20%;
+    --primary: 327 90% 54%; /* Hot Pink */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 180 80% 95%; /* Very light cyan */
+    --secondary-foreground: 180 50% 25%;
+    --muted: 220 15% 94%;
+    --muted-foreground: 225 10% 45%;
+    --accent: 45 100% 55%; /* Bright Yellow/Orange */
+    --accent-foreground: 45 100% 15%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 38 92% 50%; /* Amber */
+    --warning-foreground: 0 0% 100%;
+    --border: 220 10% 88%;
+    --input: 0 0% 100%;
+    --ring: 327 90% 54%;
+    --radius: 1rem;
+
+    /* Chart colors - make them super vibrant */
+    --chart-1: 190 90% 50%; /* Cyan */
+    --chart-2: 280 90% 60%; /* Purple */
+    --chart-3: 130 80% 50%; /* Lime Green */
+    --chart-4: 30 100% 55%; /* Orange */
+    --chart-5: 220 90% 60%; /* Blue */
+    
+    /* Sidebar specific colors for neon-party theme */
+    --sidebar-background: 250 100% 98%;
+    --sidebar-foreground: 225 15% 15%; /* Dark blue-grey for text */
+    --sidebar-accent: 327 90% 95%; /* Light Pink */
+    --sidebar-accent-foreground: 327 90% 45%;
+    --sidebar-border: 250 20% 90%;
+    --sidebar-ring: 327 90% 54%;
+
+    /* Gradients */
+    --primary-gradient: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)));
+    --high-priority-gradient: linear-gradient(to right, hsl(var(--warning)), hsl(350 95% 65%));
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply scroll-pt-16;
+  }
+  body {
+    @apply bg-background text-foreground text-base; /* Set base font size to 16px */
+    line-height: 1.6; /* Improve line height */
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  [data-theme='aurora-glass'] body {
+    /* Add a subtle aurora gradient to the background for the dark theme */
+    background-image: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(30, 144, 255, 0.3), rgba(255, 255, 255, 0));
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  /* Apply glassmorphism to key components ONLY in the aurora-glass theme */
+  [data-theme='aurora-glass'] .card, 
+  [data-theme='aurora-glass'] header,
+  [data-theme='aurora-glass'] [data-sidebar="sidebar"], 
+  [data-theme='aurora-glass'] .dialog-content, 
+  [data-theme='aurora-glass'] .popover-content, 
+  [data-theme='aurora-glass'] .dropdown-menu-content, 
+  [data-theme='aurora-glass'] .command-dialog {
+    @apply bg-background/60 backdrop-blur-xl border-cyan-300/20 shadow-cyan-300/10 shadow-lg;
+  }
+  
+  [data-theme='aurora-glass'] [data-sidebar="sidebar"] {
+    @apply border-r;
+  }
+
+  [data-theme='aurora-glass'] .dialog-content {
+      @apply bg-popover/80;
+  }
+}
+
+@layer utilities {
+    @keyframes draw-check {
+        from {
+            stroke-dashoffset: 24;
+        }
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    .animate-check {
+        stroke-dasharray: 24;
+        animation: draw-check 0.3s ease-out forwards;
+    }
+
+    /* Custom scrollbar for timeline */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        height: 6px;
+        width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: hsl(var(--muted-foreground) / 0.2);
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: hsl(var(--muted-foreground) / 0.4);
+    }
+}
